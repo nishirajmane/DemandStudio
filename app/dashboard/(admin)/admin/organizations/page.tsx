@@ -1,4 +1,4 @@
-import { db } from "@/lib/db"
+import { prisma as db } from "@/lib/prisma"
 import { OrgList } from "@/components/admin/org-list"
 import { OrgForm } from "@/components/admin/org-form"
 import { Metadata } from "next"

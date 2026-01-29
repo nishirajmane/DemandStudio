@@ -116,25 +116,6 @@ export function Sidebar() {
           {/* Temporary simplified org list */}
           <OrgLinks />
 
-          <div className="pt-4 pb-2">
-            <h3 className="px-2 text-xs font-semibold text-sidebar-foreground/70 uppercase tracking-wider">
-              Administration
-            </h3>
-          </div>
-
-          <Link
-            href="/dashboard/admin/organizations"
-            className={cn(
-              "group flex items-center px-2 py-2 text-sm font-medium rounded-md",
-              pathname.startsWith("/dashboard/admin")
-                ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
-                : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-            )}
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <LayoutDashboard className="mr-3 h-5 w-5" />
-            Manage All Orgs
-          </Link>
 
 
           <div className="pt-4 pb-2">

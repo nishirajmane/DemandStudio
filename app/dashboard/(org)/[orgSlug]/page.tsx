@@ -1,16 +1,13 @@
-import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { auth } from "@/lib/auth"
+import { prisma as db } from "@/lib/prisma"
 import { notFound, redirect } from "next/navigation"
 import { ProjectForm } from "@/components/admin/project-form"
 import { ProjectList } from "@/components/admin/project-list"
 
-interface OrgDashboardProps {
-    params: {
-        orgSlug: string
-    }
-}
+// interface OrgDashboardProps removed as it is replaced by inline type
 
-export default async function OrgDashboardPage({ params }: OrgDashboardProps) {
+export default async function OrgDashboardPage(props: { params: Promise<{ orgSlug: string }> }) {
+    const params = await props.params;
     const session = await auth()
 
     if (!session?.user) {

@@ -1,6 +1,6 @@
 
-import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { auth } from "@/lib/auth"
+import { prisma as db } from "@/lib/prisma"
 import { NextResponse } from "next/server"
 import * as z from "zod"
 

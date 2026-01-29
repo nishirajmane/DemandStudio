@@ -1,11 +1,16 @@
 import { auth } from "@/lib/auth"
+import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { FileText, BookOpen, Eye, EyeOff } from "lucide-react"
 
 export default async function DashboardPage() {
   const session = await auth()
-  
+
+  if (session?.user?.role === "admin") {
+    redirect("/dashboard/admin/organizations")
+  }
+
   const [postsCount, blogsCount, publishedPosts, publishedBlogs] = await Promise.all([
     prisma.post.count(),
     prisma.blog.count(),

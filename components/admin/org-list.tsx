@@ -86,7 +86,7 @@ export function OrgList({ organizations }: OrgListProps) {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end">
-                                        <DropdownMenuItem onClick={() => router.push(`/dashboard/${org.slug}`)}>
+                                        <DropdownMenuItem onClick={() => router.push(`/dashboard/admin/organizations/${org.id}`)}>
                                             Manage
                                         </DropdownMenuItem>
                                         <DropdownMenuItem

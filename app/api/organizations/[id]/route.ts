@@ -1,6 +1,6 @@
 
-import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { auth } from "@/lib/auth"
+import { prisma as db } from "@/lib/prisma"
 import { NextResponse } from "next/server"
 import * as z from "zod"
 
@@ -12,10 +12,10 @@ const routeContextSchema = z.object({
 
 export async function DELETE(
     req: Request,
-    context: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { params } = routeContextSchema.parse(context)
+        const params = await props.params
         const session = await auth()
 
         if (!session || !session.user) {

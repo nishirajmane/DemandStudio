@@ -8,21 +8,21 @@ datasource db {
 }
 
 model User {
-  id                 String               @id @default(cuid())
-  name               String?
-  email              String               @unique
-  emailVerified      DateTime?
-  password           String
-  image              String?
-  role               String               @default("admin")
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
-  accounts           Account[]
-  apiKeys            ApiKey[]
-  blogs              Blog[]
-  OrganizationMember OrganizationMember[]
-  posts              Post[]
-  sessions           Session[]
+  id                  String               @id @default(cuid())
+  name                String?
+  email               String               @unique
+  emailVerified       DateTime?
+  password            String
+  image               String?
+  role                String               @default("admin")
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  accounts            Account[]
+  apiKeys             ApiKey[]
+  blogs               Blog[]
+  organizationMembers OrganizationMember[]
+  posts               Post[]
+  sessions            Session[]
 }
 
 model Account {
@@ -113,7 +113,7 @@ model Blog {
   organizationId    String?
   author            User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   Author            Author?       @relation(fields: [displayedAuthorId], references: [id])
-  Organization      Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organization      Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   Tag               Tag[]         @relation("BlogToTag")
 
   @@index([authorId])
@@ -214,7 +214,7 @@ model ContentType {
   projectId   String?
   fields      ContentField[]
   items       ContentItem[]
-  Project     Project?       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project     Project?       @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId])
 }
@@ -246,29 +246,29 @@ model ContentItem {
 }
 
 model Organization {
-  id                 String               @id
-  name               String
-  slug               String               @unique
-  image              String?
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime
-  Blog               Blog[]
-  CaseStudy          CaseStudy[]
-  OrganizationMember OrganizationMember[]
-  Post               Post[]
-  Project            Project[]
-  Tag                Tag[]
+  id          String               @id @default(cuid())
+  name        String
+  slug        String               @unique
+  image       String?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  Blog        Blog[]
+  caseStudies CaseStudy[]
+  members     OrganizationMember[]
+  posts       Post[]
+  projects    Project[]
+  tags        Tag[]
 }
 
 model OrganizationMember {
-  id             String       @id
+  id             String       @id @default(cuid())
   organizationId String
   userId         String
   role           String       @default("MEMBER")
   createdAt      DateTime     @default(now())
-  updatedAt      DateTime
-  Organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  User           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([organizationId, userId])
   @@index([organizationId])
@@ -276,15 +276,15 @@ model OrganizationMember {
 }
 
 model Project {
-  id             String        @id
+  id             String        @id @default(cuid())
   name           String
   slug           String        @unique
   description    String?
   organizationId String
   createdAt      DateTime      @default(now())
   updatedAt      DateTime
-  ContentType    ContentType[]
-  Organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  contentTypes   ContentType[]
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@index([organizationId])
 }

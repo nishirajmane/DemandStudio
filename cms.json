@@ -1,0 +1,276 @@
+[
+    {
+        "type": "header",
+        "version": "5.2.3",
+        "comment": "Export to JSON plugin for phpMyAdmin"
+    },
+    {
+        "type": "database",
+        "name": "cms"
+    },
+    {
+        "type": "table",
+        "name": "Account",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "ApiKey",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "Author",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "Blog",
+        "database": "cms",
+        "data": [
+            {
+                "id": "cmkz2qyxc0001o4gwi8sett3r",
+                "title": "Plugging Synergy Through Content Syndication For Brand Promotion",
+                "slug": "plugging-synergy-through-content-syndication-for-brand-promotion",
+                "content": "{\"root\":{\"children\":[{\"children\":[{\"children\":[{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Expand Your Reach and Enhance Brand Awareness\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"listitem\",\"version\":1,\"value\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"list\",\"version\":1,\"textFormat\":1,\"listType\":\"number\",\"start\":1,\"tag\":\"ol\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Content syndication allows you to leverage existing audience bases and build an awareness about your business that can often be out of reach if you only publish on your own channels about Content Syndication on reputable industry websites. Such visibility enhances brand recognition in new unfamiliar audiences who might not have come across your business. Platforms of this nature enable you to grow your brand presence and increase your trust so that audiences are encouraged to dig deeper into your content.\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"2. \",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Enhanced SEO and Website Influx\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"By associating with content syndication, one can assist their website with search engine optimization through backlinks affiliated with high-ranking sites. That is, search engines view these backlinks in a positive light resulting in an upward change in the site’s ranking. Moreover, readers who encounter your published content on third-party networks are likely to visit your site, increasing referral traffic and bringing new prospective leads directly to your web page.\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"3. \",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Cost Friendly Lead Acquisition\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Through content syndication, you can reach people who are interested in your industry or services for a very reasonable price. Through the use of CTAs embedded in the syndicated content or links to ‘gated’ materials including but not limited to; whitepapers, eBooks or webinars, one can be able to capture leads from interested readers. Through this method, one can access qualified leads without incurring costs associated with high-cost paid adverts.\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"altText\":\"\",\"caption\":{\"editorState\":{\"root\":{\"children\":[],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}},\"height\":0,\"maxWidth\":500,\"showCaption\":false,\"src\":\"\/uploads\/1769668298283-373261553-20944573.png\",\"type\":\"image\",\"version\":1,\"width\":0}],\"direction\":null,\"format\":\"center\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"4. \",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Citing an Authority\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"When you publish your content to recognized authorities, you help to build your brand as an experienced expert in the particular field. Regularly creating noteworthy and relevant pieces of content enhances your brand’s position and creates confidence among new consumers. Gradually, this trust helps to build your image, enabling more collaborations and media exposure which helps in further strengthening your brand.\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"5. \",\"type\":\"text\",\"version\":1},{\"detail\":0,\"format\":1,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Creating Content for Return On Investment\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Sharing content that has been posted before helps to ensure that you gain more from every piece of content you create, which increases your content marketing ROI. Instead of having to come up with brand new materials altogether, one can take their best-performing content and modify it for syndication and broaden its coverage with no additional expenses. This allows your team to be effective while increasing the reach of your content.\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Conclusion\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"heading\",\"version\":1,\"tag\":\"h2\"},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"In conclusion, it can be stated that \",\"type\":\"text\",\"version\":1},{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"content syndication\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"link\",\"version\":1,\"rel\":\"noreferrer\",\"target\":null,\"title\":null,\"url\":\"https:\/\/demandifymedia.com\"},{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\" can be a great strategy to address the focus of the brand over the vast expanse in an effective and cost-efficient manner. It increases the SEO visibility of the brand too, leads may be generated by utilizing a smart search engine marketing investment, or with the help of affiliate networks.\",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"start\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+                "excerpt": null,
+                "published": "0",
+                "featured": "0",
+                "authorId": "cmkxx9idg0002o4nwtaun54r5",
+                "createdAt": "2026-01-29 06:29:50.540",
+                "updatedAt": "2026-01-29 08:45:15.963",
+                "publishedAt": null,
+                "image": "\/uploads\/1769668178532-733635109-plugging-synergy-through-content-syndication-for-brand-promotion.avif",
+                "category": "Demand Gen",
+                "tags": null,
+                "canonicalUrl": null,
+                "displayedAuthorId": null,
+                "enableToc": "0",
+                "faqSchema": null,
+                "faqs": null,
+                "jsonLd": null,
+                "metaKeywords": null,
+                "ogImage": null,
+                "seoDescription": null,
+                "seoTitle": null,
+                "tocStructure": null,
+                "organizationId": null
+            }
+        ]
+    },
+    {
+        "type": "table",
+        "name": "CaseStudy",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "ContentField",
+        "database": "cms",
+        "data": [
+            {
+                "id": "cmkxxoyp10002o4sw2z56mjf1",
+                "name": "Title",
+                "key": "title",
+                "type": "text",
+                "required": "1",
+                "options": null,
+                "contentTypeId": "cmkxxmyvv0000o4swftaqz3dq",
+                "order": "0"
+            },
+            {
+                "id": "cmkxxoyta0004o4swyp6knqzu",
+                "name": "Thumbnail",
+                "key": "thumbnail",
+                "type": "image",
+                "required": "0",
+                "options": null,
+                "contentTypeId": "cmkxxmyvv0000o4swftaqz3dq",
+                "order": "1"
+            },
+            {
+                "id": "cmkxxx6iy0006o4swyn905ty9",
+                "name": "Casestudy",
+                "key": "casestudy",
+                "type": "file",
+                "required": "0",
+                "options": null,
+                "contentTypeId": "cmkxxmyvv0000o4swftaqz3dq",
+                "order": "2"
+            },
+            {
+                "id": "cmky1sqdh0002o494ncuzubzl",
+                "name": "Title",
+                "key": "title",
+                "type": "text",
+                "required": "0",
+                "options": null,
+                "contentTypeId": "cmky1s33q0000o494uy0xz2ft",
+                "order": "0"
+            },
+            {
+                "id": "cmky1sqea0004o494gen9d91j",
+                "name": "Document",
+                "key": "document",
+                "type": "file",
+                "required": "0",
+                "options": null,
+                "contentTypeId": "cmky1s33q0000o494uy0xz2ft",
+                "order": "1"
+            }
+        ]
+    },
+    {
+        "type": "table",
+        "name": "ContentItem",
+        "database": "cms",
+        "data": [
+            {
+                "id": "cmkxxy0tb0008o4swc9tywr2x",
+                "contentTypeId": "cmkxxmyvv0000o4swftaqz3dq",
+                "data": "{\"title\":\"Skyflow\",\"thumbnail\":\"\/uploads\/1769599642016-237844530-skyflow.jpg\",\"casestudy\":\"\/uploads\/1769599651877-62262869-CMSRequirementsDocumentation1.docx\"}",
+                "published": "0",
+                "createdAt": "2026-01-28 11:27:35.327",
+                "updatedAt": "2026-01-28 11:27:35.327"
+            },
+            {
+                "id": "cmky1tc650006o494fku2lru6",
+                "contentTypeId": "cmky1s33q0000o494uy0xz2ft",
+                "data": "{\"title\":\"Sophos\",\"document\":\"\/uploads\/1769606152740-307683512-CMSStructure11.docx\"}",
+                "published": "0",
+                "createdAt": "2026-01-28 13:15:55.228",
+                "updatedAt": "2026-01-29 06:21:13.762"
+            }
+        ]
+    },
+    {
+        "type": "table",
+        "name": "ContentType",
+        "database": "cms",
+        "data": [
+            {
+                "id": "cmkxxmyvv0000o4swftaqz3dq",
+                "name": "Casestudy",
+                "slug": "casestudy",
+                "description": "",
+                "createdAt": "2026-01-28 11:18:59.612",
+                "updatedAt": "2026-01-28 13:01:48.074",
+                "projectId": null
+            },
+            {
+                "id": "cmky1s33q0000o494uy0xz2ft",
+                "name": "Ebooks",
+                "slug": "ebooks",
+                "description": "",
+                "createdAt": "2026-01-28 13:14:56.821",
+                "updatedAt": "2026-01-28 13:15:26.938",
+                "projectId": null
+            }
+        ]
+    },
+    {
+        "type": "table",
+        "name": "EBook",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "Organization",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "OrganizationMember",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "Post",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "Project",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "Session",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "StaffEvent",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "Tag",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "User",
+        "database": "cms",
+        "data": [
+            {
+                "id": "cmkxx9idg0002o4nwtaun54r5",
+                "name": "Demand Tech",
+                "email": "admin@demandifymedia.com",
+                "emailVerified": null,
+                "password": "$2b$10$pcdJu\/yAF1Zz0J5t2zY76ew7kFUMxa9e7UxI6i40WaoQKGioHso.O",
+                "image": null,
+                "role": "admin",
+                "createdAt": "2026-01-28 11:08:31.684",
+                "updatedAt": "2026-01-28 11:08:31.684"
+            }
+        ]
+    },
+    {
+        "type": "table",
+        "name": "VerificationToken",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "_BlogToTag",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "_CaseStudyToTag",
+        "database": "cms",
+        "data": []
+    },
+    {
+        "type": "table",
+        "name": "_prisma_migrations",
+        "database": "cms",
+        "data": [
+            {
+                "id": "2f0e3f95-bc7d-4215-af5d-4c3502b1046f",
+                "checksum": "2c3aa10dd708b184aab8b6aba2daeba0bd1fdba0cfa92f9c264b393d264e2bbe",
+                "finished_at": "2026-01-28 10:56:24.567",
+                "migration_name": "20260128105620_add_dynamic_content_models",
+                "logs": null,
+                "rolled_back_at": null,
+                "started_at": "2026-01-28 10:56:20.609",
+                "applied_steps_count": "1"
+            }
+        ]
+    }
+]

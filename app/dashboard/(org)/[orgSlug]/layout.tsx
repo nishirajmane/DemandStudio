@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
-import { AppSidebar } from "@/components/app-sidebar"
+import { OrgSidebar } from "@/components/sidebars/org-sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
@@ -35,7 +35,7 @@ export default async function OrgLayout(props: {
 
     return (
         <SidebarProvider>
-            <AppSidebar user={session.user} role="org" org={{ id: org.id, name: org.name, slug: org.slug }} />
+            <OrgSidebar user={session.user} org={{ id: org.id, name: org.name, slug: org.slug }} />
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b px-4 justify-between">
                     <div className="flex items-center gap-2">

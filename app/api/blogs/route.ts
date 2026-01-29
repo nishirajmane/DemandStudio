@@ -38,6 +38,8 @@ export async function POST(request: NextRequest) {
         category: category || null,
         authorId,
         publishedAt: publishedAt ? new Date(publishedAt) : null,
+        organizationId: body.organizationId,
+        projectId: body.projectId,
       },
     })
 

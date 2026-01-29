@@ -76,7 +76,7 @@ export function ProjectList({ projects, orgSlug }: ProjectListProps) {
                         </div>
                     </CardContent>
                     <CardFooter className="flex justify-between">
-                        <Button variant="outline" size="sm" onClick={() => router.push(`/dashboard/${orgSlug}/${project.slug}`)}>
+                        <Button variant="outline" size="sm" onClick={() => router.push(`/dashboard/${orgSlug}/projects/${project.slug}`)}>
                             <Settings className="mr-2 h-4 w-4" />
                             Manage
                         </Button>

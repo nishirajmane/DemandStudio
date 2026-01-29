@@ -37,6 +37,8 @@ export async function POST(request: NextRequest) {
         image: image || null,
         authorId,
         publishedAt: publishedAt ? new Date(publishedAt) : null,
+        organizationId: body.organizationId,
+        projectId: body.projectId,
       },
     })
 

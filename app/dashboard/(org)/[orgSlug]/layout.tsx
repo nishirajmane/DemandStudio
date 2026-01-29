@@ -34,26 +34,8 @@ export default async function OrgLayout(props: {
     }
 
     return (
-        <SidebarProvider>
-            <OrgSidebar user={session.user} org={{ id: org.id, name: org.name, slug: org.slug }} />
-            <SidebarInset>
-                <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b px-4 justify-between">
-                    <div className="flex items-center gap-2">
-                        <SidebarTrigger className="-ml-1" />
-                        <Separator orientation="vertical" className="mr-2 h-4" />
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                        <ModeToggle />
-                        <div className="text-sm font-medium">
-                            {session.user.name || session.user.email}
-                        </div>
-                    </div>
-                </header>
-                <main className="flex-1 flex flex-col gap-4 p-4">
-                    {children}
-                </main>
-            </SidebarInset>
-        </SidebarProvider>
+        <>
+            {children}
+        </>
     )
 }

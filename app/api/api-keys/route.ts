@@ -12,8 +12,30 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { searchParams } = new URL(request.url)
+    const projectSlug = searchParams.get("projectSlug")
+    const orgSlug = searchParams.get("orgSlug")
+
+    if (!projectSlug || !orgSlug) {
+      return NextResponse.json({ error: "Project context required" }, { status: 400 })
+    }
+
+    const project = await prisma.project.findUnique({
+      where: {
+        slug: projectSlug,
+        organization: { slug: orgSlug }
+      }
+    })
+
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 })
+    }
+
     const apiKeys = await prisma.apiKey.findMany({
-      where: { userId: session.user.id },
+      where: {
+        userId: session.user.id,
+        projectId: project.id
+      },
       orderBy: { createdAt: "desc" },
     })
 
@@ -47,13 +69,24 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { name, expiresInDays } = body
+    const { name, expiresInDays, projectSlug, orgSlug } = body
 
-    if (!name) {
+    if (!name || !projectSlug || !orgSlug) {
       return NextResponse.json(
-        { error: "Name is required" },
+        { error: "Name and project context are required" },
         { status: 400 }
       )
+    }
+
+    const project = await prisma.project.findUnique({
+      where: {
+        slug: projectSlug,
+        organization: { slug: orgSlug }
+      }
+    })
+
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 })
     }
 
     // Generate a secure API key
@@ -69,6 +102,7 @@ export async function POST(request: NextRequest) {
         name,
         key: apiKey,
         userId: session.user.id,
+        projectId: project.id,
         expiresAt,
         active: true,
       },

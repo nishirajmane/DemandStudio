@@ -37,9 +37,12 @@ interface PostFormProps {
     tags?: string | null
     image?: string | null
   }
+  organizationId?: string
+  projectId?: string
+  redirectUrl?: string
 }
 
-export function PostForm({ userId, post }: PostFormProps) {
+export function PostForm({ userId, post, organizationId, projectId, redirectUrl }: PostFormProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const {
@@ -99,11 +102,17 @@ export function PostForm({ userId, post }: PostFormProps) {
           ...data,
           authorId: userId,
           publishedAt: data.published ? new Date().toISOString() : null,
+          organizationId,
+          projectId,
         }),
       })
 
       if (response.ok) {
-        router.push("/dashboard/posts")
+        if (redirectUrl) {
+          router.push(redirectUrl)
+        } else {
+          router.push("/dashboard/posts")
+        }
         router.refresh()
       } else {
         alert("Failed to save post")

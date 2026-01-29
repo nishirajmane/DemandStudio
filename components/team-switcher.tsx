@@ -22,6 +22,8 @@ import {
 
 export function TeamSwitcher({
   teams,
+  label = "Organizations",
+  addLabel = "Add Organization",
 }: {
   teams: {
     name: string
@@ -29,6 +31,8 @@ export function TeamSwitcher({
     plan: string
     url?: string
   }[]
+  label?: string
+  addLabel?: string
 }) {
   const { isMobile } = useSidebar()
   const router = useRouter()
@@ -36,7 +40,15 @@ export function TeamSwitcher({
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
 
   // Optional: Update active team based on current URL path
-  // For now we just let it be selectable
+  // In a real app we might verify if the URL actually matches a team
+
+  // If teams change (e.g. async fetch), update active team if current one is invalid
+  React.useEffect(() => {
+    if (teams.length > 0 && (!activeTeam || !teams.find(t => t.name === activeTeam.name))) {
+      setActiveTeam(teams[0])
+    }
+  }, [teams, activeTeam])
+
 
   if (!activeTeam) {
     return null
@@ -77,7 +89,7 @@ export function TeamSwitcher({
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-xs text-muted-foreground">
-              Organizations
+              {label}
             </DropdownMenuLabel>
             {teams.map((team, index) => (
               <DropdownMenuItem
@@ -97,7 +109,7 @@ export function TeamSwitcher({
               <div className="flex size-6 items-center justify-center rounded-md border bg-background">
                 <Plus className="size-4" />
               </div>
-              <div className="font-medium text-muted-foreground">Add Organization</div>
+              <div className="font-medium text-muted-foreground">{addLabel}</div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -4,11 +4,13 @@ import * as React from "react"
 import {
     Building,
     ArrowLeft,
+    GalleryVerticalEnd,
 } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
 import {
     Sidebar,
     SidebarContent,
@@ -34,12 +36,30 @@ type Org = {
     slug: string
 }
 
+type Project = {
+    id: string
+    name: string
+    slug: string
+    description?: string | null
+}
+
 export function OrgSidebar({
     user,
     org,
     ...props
 }: React.ComponentProps<typeof Sidebar> & { user: User, org: Org }) {
     const pathname = usePathname()
+    const [projects, setProjects] = React.useState<Project[]>([])
+
+    // Fetch projects for this org
+    React.useEffect(() => {
+        fetch(`/api/organizations/${org.id}/projects`)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) setProjects(data)
+            })
+            .catch(console.error)
+    }, [org.id])
 
     const data = React.useMemo(() => {
         return {
@@ -48,6 +68,13 @@ export function OrgSidebar({
                 email: user.email || "",
                 avatar: user.image || "",
             },
+            // Map projects to switcher teams
+            teams: projects.map(p => ({
+                name: p.name,
+                logo: GalleryVerticalEnd,
+                plan: "Project",
+                url: `/dashboard/${org.slug}/projects/${p.slug}` // Assumed URL structure for project dashboard
+            })),
             navMain: [
                 {
                     title: org.name,
@@ -79,29 +106,23 @@ export function OrgSidebar({
                 },
             ],
         }
-    }, [user, org, pathname])
+    }, [user, org, pathname, projects])
 
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
-                <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2 px-4 py-2 font-bold text-lg text-sidebar-foreground">
-                        <Building className="h-6 w-6" />
-                        <span className="truncate">{org.name}</span>
-                    </div>
-                </div>
+                <TeamSwitcher
+                    teams={data.teams.length > 0 ? data.teams : [{
+                        name: org.name,
+                        logo: GalleryVerticalEnd,
+                        plan: "Organization",
+                        url: "#"
+                    }]}
+                    label={data.teams.length > 0 ? "Projects" : "Organization"}
+                    addLabel="Create Project"
+                />
             </SidebarHeader>
             <SidebarContent>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                            <a href="/dashboard" className="text-muted-foreground hover:text-foreground">
-                                <ArrowLeft className="mr-2 h-4 w-4" />
-                                <span>Back to Dashboard</span>
-                            </a>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
                 <NavMain items={data.navMain} />
             </SidebarContent>
             <SidebarFooter>

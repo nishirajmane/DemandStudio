@@ -17,7 +17,30 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
         }
 
+        const { searchParams } = new URL(request.url)
+        const projectSlug = searchParams.get("projectSlug")
+        const orgSlug = searchParams.get("orgSlug")
+
+        if (!projectSlug || !orgSlug) {
+            return NextResponse.json({ error: "Project context required" }, { status: 400 })
+        }
+
+        // Verify project access
+        const project = await prisma.project.findUnique({
+            where: {
+                slug: projectSlug,
+                organization: { slug: orgSlug }
+            }
+        })
+
+        if (!project) {
+            return NextResponse.json({ error: "Project not found" }, { status: 404 })
+        }
+
         const contentTypes = await prisma.contentType.findMany({
+            where: {
+                projectId: project.id
+            },
             include: {
                 _count: {
                     select: { items: true },
@@ -41,19 +64,41 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json()
-        const validatedData = contentTypeSchema.parse(body)
+        const { orgSlug, projectSlug, ...data } = body
+        const validatedData = contentTypeSchema.parse(data)
 
-        // Check for existing slug
-        const existing = await prisma.contentType.findUnique({
-            where: { slug: validatedData.slug },
+        if (!projectSlug || !orgSlug) {
+            return NextResponse.json({ error: "Project context required" }, { status: 400 })
+        }
+
+        const project = await prisma.project.findUnique({
+            where: {
+                slug: projectSlug,
+                organization: { slug: orgSlug }
+            }
+        })
+
+        if (!project) {
+            return NextResponse.json({ error: "Project not found" }, { status: 404 })
+        }
+
+        // Check for existing slug IN THIS PROJECT
+        const existing = await prisma.contentType.findFirst({
+            where: {
+                slug: validatedData.slug,
+                projectId: project.id
+            },
         })
 
         if (existing) {
-            return NextResponse.json({ error: "Context type with this slug already exists" }, { status: 400 })
+            return NextResponse.json({ error: "Content type with this slug is already used in this project" }, { status: 400 })
         }
 
         const contentType = await prisma.contentType.create({
-            data: validatedData,
+            data: {
+                ...validatedData,
+                projectId: project.id
+            },
         })
 
         return NextResponse.json(contentType)

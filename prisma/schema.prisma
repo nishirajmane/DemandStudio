@@ -77,11 +77,14 @@ model Post {
   tags           String?
   image          String?
   organizationId String?
+  projectId      String?
   author         User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   Organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  Project        Project?      @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([authorId])
   @@index([organizationId])
+  @@index([projectId])
 }
 
 model Blog {
@@ -111,14 +114,17 @@ model Blog {
   seoTitle          String?
   tocStructure      String?       @db.LongText
   organizationId    String?
+  projectId         String?
   author            User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   Author            Author?       @relation(fields: [displayedAuthorId], references: [id])
   organization      Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  Project           Project?      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   Tag               Tag[]         @relation("BlogToTag")
 
   @@index([authorId])
   @@index([displayedAuthorId])
   @@index([organizationId])
+  @@index([projectId])
 }
 
 model ApiKey {
@@ -131,9 +137,12 @@ model ApiKey {
   updatedAt DateTime  @updatedAt
   expiresAt DateTime?
   active    Boolean   @default(true)
+  projectId String?
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project   Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([projectId])
 }
 
 model Author {
@@ -282,8 +291,12 @@ model Project {
   description    String?
   organizationId String
   createdAt      DateTime      @default(now())
-  updatedAt      DateTime
+
+  updatedAt      DateTime      @updatedAt
   contentTypes   ContentType[]
+  posts          Post[]
+  blogs          Blog[]
+  apiKeys        ApiKey[]
   organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@index([organizationId])

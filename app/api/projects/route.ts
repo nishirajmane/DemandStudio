@@ -51,6 +51,7 @@ export async function POST(req: Request) {
                 slug: body.slug,
                 description: body.description,
                 organizationId: body.organizationId,
+                updatedAt: new Date(),
             }
         })
 
@@ -60,6 +61,7 @@ export async function POST(req: Request) {
             return new NextResponse(JSON.stringify(error.issues), { status: 422 })
         }
 
+        console.error("PROJECT CREATION ERROR:", error)
         return new NextResponse(null, { status: 500 })
     }
 }

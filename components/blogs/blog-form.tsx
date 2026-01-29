@@ -68,6 +68,9 @@ interface BlogFormProps {
     tocStructure?: string | null
     displayedAuthorId?: string | null
   }
+  organizationId?: string
+  projectId?: string
+  redirectUrl?: string
 }
 
 // Helper to handle existing content
@@ -112,7 +115,7 @@ const parseContent = (content: string) => {
   }
 }
 
-export function BlogForm({ userId, blog }: BlogFormProps) {
+export function BlogForm({ userId, blog, organizationId, projectId, redirectUrl }: BlogFormProps) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const {
@@ -207,11 +210,17 @@ export function BlogForm({ userId, blog }: BlogFormProps) {
           publishedAt: data.publishedAt ? new Date(data.publishedAt).toISOString() : (data.published ? new Date().toISOString() : null),
           displayedAuthorId: data.displayedAuthorId || null,
           tocStructure: data.tocStructure || null,
+          organizationId,
+          projectId,
         }),
       })
 
       if (response.ok) {
-        router.push("/dashboard/blogs")
+        if (redirectUrl) {
+          router.push(redirectUrl)
+        } else {
+          router.push("/dashboard/blogs")
+        }
         router.refresh()
       } else {
         alert("Failed to save blog")

@@ -1,34 +1,30 @@
 import { notFound } from "next/navigation"
 import { prisma as db } from "@/lib/prisma"
 import { auth } from "@/lib/auth"
-import { Greeting } from "@/components/dashboard/dashboard-widgets"
-import { OrgBentoNav } from "@/components/dashboard/org-bento-nav"
+import { CreateProjectForm } from "@/components/dashboard/create-project-form"
 
-export default async function OrgDashboardPage(props: {
+export default async function CreateProjectPage(props: {
     params: Promise<{ orgSlug: string }>
 }) {
     const params = await props.params;
     const session = await auth()
 
     if (!session) {
-        return null
+        return notFound()
     }
 
     const org = await db.organization.findUnique({
         where: {
             slug: params.orgSlug,
         },
-        include: {
+        select: {
+            id: true,
+            name: true,
+            slug: true,
             members: {
                 where: {
                     userId: session.user.id,
                 },
-            },
-            projects: {
-                orderBy: {
-                    createdAt: "desc",
-                },
-                take: 5
             },
         },
     })
@@ -42,13 +38,15 @@ export default async function OrgDashboardPage(props: {
     }
 
     return (
-        <div className="max-w-6xl mx-auto space-y-8">
-            <Greeting orgName={org.name} />
-
+        <div className="max-w-4xl mx-auto py-8">
             <div className="mb-8">
-                <OrgBentoNav orgSlug={org.slug} orgId={org.id} projects={org.projects} />
+                <h1 className="text-3xl font-bold tracking-tight">Create Project</h1>
+                <p className="text-muted-foreground mt-2">
+                    Add a new project to {org.name}.
+                </p>
             </div>
 
+            <CreateProjectForm organizationId={org.id} orgSlug={org.slug} />
         </div>
     )
 }

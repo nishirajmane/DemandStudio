@@ -39,6 +39,7 @@ function OrgLinks() {
       .catch(console.error)
   }, [])
 
+
   return (
     <>
       {orgs.map((org) => {
@@ -68,16 +69,9 @@ function OrgLinks() {
 export function Sidebar() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [contentTypes, setContentTypes] = useState<{ id: string, name: string, slug: string }[]>([])
 
-  useEffect(() => {
-    fetch("/api/content-types")
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) setContentTypes(data)
-      })
-      .catch(console.error)
-  }, [])
+
+
 
   const SidebarContent = () => (
     <div className="flex flex-col flex-grow border-r border-sidebar-border bg-sidebar overflow-y-auto">
@@ -118,45 +112,7 @@ export function Sidebar() {
 
 
 
-          <div className="pt-4 pb-2">
-            <h3 className="px-2 text-xs font-semibold text-sidebar-foreground/70 uppercase tracking-wider">
-              Dynamic Content
-            </h3>
-          </div>
 
-          <Link
-            href="/dashboard/builder"
-            className={cn(
-              "group flex items-center px-2 py-2 text-sm font-medium rounded-md",
-              pathname.startsWith("/dashboard/builder")
-                ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
-                : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-            )}
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <Database className="mr-3 h-5 w-5" />
-            Schema Builder
-          </Link>
-
-          {contentTypes.map((type) => {
-            const isActive = pathname.startsWith(`/dashboard/content/${type.slug}`)
-            return (
-              <Link
-                key={type.id}
-                href={`/dashboard/content/${type.slug}`}
-                className={cn(
-                  "group flex items-center px-2 py-2 text-sm font-medium rounded-md",
-                  isActive
-                    ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-sm"
-                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                )}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Layers className="mr-3 h-5 w-5" />
-                {type.name}
-              </Link>
-            )
-          })}
 
         </nav>
         <div className="px-2 pb-4">

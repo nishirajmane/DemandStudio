@@ -59,7 +59,7 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar> & { user: User, role?: "admin" | "user" | "org", org?: Org }) {
   const pathname = usePathname()
   const [orgs, setOrgs] = React.useState<Org[]>([])
-  const [contentTypes, setContentTypes] = React.useState<ContentType[]>([])
+
 
   // Fetch data only for regular users and org view context
   React.useEffect(() => {
@@ -73,12 +73,7 @@ export function AppSidebar({
         })
         .catch(console.error)
 
-      fetch("/api/content-types")
-        .then(res => res.json())
-        .then(data => {
-          if (Array.isArray(data)) setContentTypes(data)
-        })
-        .catch(console.error)
+
     }
   }, [role])
 
@@ -222,27 +217,10 @@ export function AppSidebar({
             },
           ],
         },
-        {
-          title: "Dynamic Content",
-          url: "#",
-          icon: Database,
-          isActive: pathname.startsWith("/dashboard/builder") || pathname.startsWith("/dashboard/content"),
-          items: [
-            {
-              title: "Schema Builder",
-              url: "/dashboard/builder",
-              isActive: pathname.startsWith("/dashboard/builder"),
-            },
-            ...contentTypes.map(type => ({
-              title: type.name,
-              url: `/dashboard/content/${type.slug}`,
-              isActive: pathname.startsWith(`/dashboard/content/${type.slug}`),
-            }))
-          ],
-        }
+
       ],
     }
-  }, [role, user, pathname, orgs, contentTypes, org])
+  }, [role, user, pathname, orgs, org])
 
   return (
     <Sidebar collapsible="icon" {...props}>

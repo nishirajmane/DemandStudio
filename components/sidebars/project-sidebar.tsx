@@ -59,7 +59,8 @@ export function ProjectSidebar({
     // Assuming they are global for now or we will need to scope them to project later.
     // For now, let's just fetch them as before.
     React.useEffect(() => {
-        fetch("/api/content-types")
+        if (!project?.slug || !orgSlug) return
+        fetch(`/api/content-types?projectSlug=${project.slug}&orgSlug=${orgSlug}`)
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) setContentTypes(data)
@@ -100,6 +101,24 @@ export function ProjectSidebar({
                             url: `${baseUrl}/blogs`,
                             isActive: pathname.startsWith(`${baseUrl}/blogs`),
                         },
+                        ...contentTypes.map(type => ({
+                            title: type.name,
+                            url: `${baseUrl}/content/${type.slug}`,
+                            isActive: pathname.startsWith(`${baseUrl}/content/${type.slug}`),
+                        }))
+                    ],
+                },
+                {
+                    title: "Dynamic Content",
+                    url: "#",
+                    icon: Database,
+                    isActive: pathname.startsWith(`${baseUrl}/builder`),
+                    items: [
+                        {
+                            title: "Schema Builder",
+                            url: `${baseUrl}/builder`,
+                            isActive: pathname.startsWith(`${baseUrl}/builder`),
+                        },
                     ],
                 },
                 {
@@ -117,24 +136,6 @@ export function ProjectSidebar({
                             url: `${baseUrl}/api-docs`,
                             isActive: pathname.startsWith(`${baseUrl}/api-docs`),
                         },
-                    ],
-                },
-                {
-                    title: "Dynamic Content",
-                    url: "#",
-                    icon: Database,
-                    isActive: pathname.startsWith(`${baseUrl}/builder`) || pathname.startsWith(`${baseUrl}/content`),
-                    items: [
-                        {
-                            title: "Schema Builder",
-                            url: `${baseUrl}/builder`,
-                            isActive: pathname.startsWith(`${baseUrl}/builder`),
-                        },
-                        ...contentTypes.map(type => ({
-                            title: type.name,
-                            url: `${baseUrl}/content/${type.slug}`,
-                            isActive: pathname.startsWith(`${baseUrl}/content/${type.slug}`),
-                        }))
                     ],
                 }
             ],

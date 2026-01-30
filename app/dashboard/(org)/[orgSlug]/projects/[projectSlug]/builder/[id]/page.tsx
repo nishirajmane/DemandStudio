@@ -2,8 +2,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation" // Using next/navigation for app directory
-import { useParams } from "next/navigation"
+import { useRouter, useParams } from "next/navigation"
 import { Plus, Trash2, ArrowLeft, GripVertical, Save, Pencil } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -34,17 +33,16 @@ import {
     PointerSensor,
     useSensor,
     useSensors,
-    DragEndEvent // Import DragEndEvent
+    DragEndEvent
 } from "@dnd-kit/core"
 import {
     arrayMove,
     SortableContext,
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
-    useSortable // Import useSortable
+    useSortable
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import router from "next/router"
 
 interface ContentField {
     id: string
@@ -72,7 +70,6 @@ const FIELD_TYPES = [
     { value: "boolean", label: "Boolean (Switch)" },
     { value: "image", label: "Image" },
     { value: "file", label: "File / Document" },
-    // { value: "select", label: "Select (Dropdown)" }, // Complexity: needs options management
 ]
 
 // Sortable Item Component
@@ -95,26 +92,30 @@ function SortableFieldItem({ field, onEdit, onDelete, FIELD_TYPES }: { field: Co
             ref={setNodeRef}
             style={style}
             {...attributes}
-            className="flex items-center gap-3 p-3 border rounded-md bg-card hover:bg-accent/50 transition-colors group relative"
+            className="flex items-center gap-3 p-3 border rounded-lg bg-background shadow-sm hover:shadow-md hover:border-primary/20 transition-all group relative"
         >
-            <div className="cursor-grab hover:cursor-grabbing text-muted-foreground outline-none p-1 rounded hover:bg-accent touch-none" {...listeners}>
-                <GripVertical className="h-4 w-4" />
+            <div className="cursor-grab hover:cursor-grabbing text-muted-foreground/50 hover:text-primary outline-none p-1 rounded hover:bg-primary/5 touch-none transition-colors" {...listeners}>
+                <GripVertical className="h-5 w-5" />
             </div>
             <div className="flex-1">
-                <div className="font-medium flex items-center gap-2">
+                <div className="font-medium flex items-center gap-2 text-foreground">
                     {field.name}
-                    {field.required && <span className="text-xs bg-primary/10 text-primary px-1.5 rounded">Required</span>}
+                    {field.required && <span className="text-[10px] uppercase font-bold bg-destructive/10 text-destructive px-1.5 py-0.5 rounded-full tracking-wider">Required</span>}
                 </div>
-                <div className="text-xs text-muted-foreground font-mono">
-                    {field.key} • {FIELD_TYPES.find(t => t.value === field.type)?.label || field.type}
+                <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-muted-foreground">{field.key}</span>
+                    <span className="text-[10px] text-muted-foreground">•</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+                        {FIELD_TYPES.find(t => t.value === field.type)?.label || field.type}
+                    </span>
                 </div>
             </div>
             <div className="flex gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onEdit(field)}>
-                    <Pencil className="h-3 w-3" />
+                <Button variant="ghost" size="icon" className="h-8 w-8 hover:text-primary hover:bg-primary/10" onClick={() => onEdit(field)}>
+                    <Pencil className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:bg-destructive/10" onClick={() => onDelete(field.id)}>
-                    <Trash2 className="h-3 w-3" />
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10" onClick={() => onDelete(field.id)}>
+                    <Trash2 className="h-4 w-4" />
                 </Button>
             </div>
         </div>
@@ -125,6 +126,11 @@ export default function ContentTypeEditorPage() {
     const router = useRouter()
     const params = useParams()
     const id = params?.id as string
+    const orgSlug = params?.orgSlug as string
+    const projectSlug = params?.projectSlug as string
+
+    // Construct the back URL (List page)
+    const backUrl = `/dashboard/${orgSlug}/projects/${projectSlug}/builder`
 
     const [contentType, setContentType] = useState<ContentType | null>(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -193,7 +199,7 @@ export default function ContentTypeEditorPage() {
             setContentType(data)
         } catch (error) {
             toast.error("Failed to load content type")
-            router.push("/dashboard/builder")
+            router.push(backUrl)
         } finally {
             setIsLoading(false)
         }
@@ -215,6 +221,7 @@ export default function ContentTypeEditorPage() {
             const updated = await res.json()
             setContentType(updated)
             toast.success("Schema saved successfully")
+            router.push(backUrl) // Redirect on success
         } catch (error) {
             toast.error("Failed to save schema")
         } finally {
@@ -297,9 +304,9 @@ export default function ContentTypeEditorPage() {
     if (!contentType) return <div className="p-8">Content type not found</div>
 
     return (
-        <div className="p-8 space-y-8 max-w-5xl mx-auto">
+        <div className="p-8 space-y-8 w-full">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon" onClick={() => router.push("/dashboard/builder")}>
+                <Button variant="ghost" size="icon" onClick={() => router.push(backUrl)}>
                     <ArrowLeft className="h-4 w-4" />
                 </Button>
                 <div className="flex-1">
@@ -316,50 +323,52 @@ export default function ContentTypeEditorPage() {
 
             <div className="grid gap-8 grid-cols-1 md:grid-cols-3">
                 {/* Main Settings */}
-                <Card className="md:col-span-1 h-fit">
-                    <CardHeader>
-                        <CardTitle>Settings</CardTitle>
+                <Card className="md:col-span-1 h-fit shadow-md border-muted/60 overflow-hidden">
+                    <CardHeader className="bg-muted/30 border-b pb-4">
+                        <CardTitle className="text-lg">Settings</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-4 pt-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="typeName">Name</Label>
+                            <Label htmlFor="typeName" className="text-foreground/80">Name</Label>
                             <Input
                                 id="typeName"
                                 value={contentType.name}
                                 onChange={(e) => setContentType({ ...contentType, name: e.target.value })}
+                                className="bg-background"
                             />
                         </div>
                         <div className="grid gap-2">
-                            <Label htmlFor="typeDescription">Description</Label>
+                            <Label htmlFor="typeDescription" className="text-foreground/80">Description</Label>
                             <Input
                                 id="typeDescription"
                                 value={contentType.description || ""}
                                 onChange={(e) => setContentType({ ...contentType, description: e.target.value })}
+                                className="bg-background"
                             />
                         </div>
                         <div className="grid gap-2">
-                            <Label>Slug</Label>
-                            <Input value={contentType.slug} disabled className="bg-muted" />
+                            <Label className="text-foreground/80">Slug</Label>
+                            <Input value={contentType.slug} disabled className="bg-muted/50 font-mono text-sm" />
                             <p className="text-xs text-muted-foreground">Slug cannot be changed after creation.</p>
                         </div>
                     </CardContent>
                 </Card>
 
                 {/* Fields Editor */}
-                <Card className="md:col-span-2">
-                    <CardHeader className="flex flex-row items-center justify-between">
-                        <div>
-                            <CardTitle>Fields</CardTitle>
+                <Card className="md:col-span-2 shadow-md border-muted/60 overflow-hidden">
+                    <CardHeader className="flex flex-row items-center justify-between bg-muted/30 border-b pb-4">
+                        <div className="space-y-1">
+                            <CardTitle className="text-lg">Fields</CardTitle>
                             <CardDescription>Define the structure of your content.</CardDescription>
                         </div>
-                        <Button size="sm" onClick={() => { resetFieldForm(); setIsFieldDialogOpen(true); }}>
+                        <Button size="sm" onClick={() => { resetFieldForm(); setIsFieldDialogOpen(true); }} className="shadow-none">
                             <Plus className="mr-2 h-4 w-4" />
                             Add Field
                         </Button>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-6 bg-muted/5 min-h-[400px]">
                         {contentType.fields?.length === 0 ? (
-                            <div className="text-center py-12 border-2 border-dashed rounded-lg">
+                            <div className="text-center py-12 border-2 border-dashed border-muted-foreground/20 rounded-xl bg-background/50">
                                 <p className="text-muted-foreground mb-4">No fields defined yet.</p>
                                 <Button variant="secondary" onClick={() => setIsFieldDialogOpen(true)}>
                                     Add your first field

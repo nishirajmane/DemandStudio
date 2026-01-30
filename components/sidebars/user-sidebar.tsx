@@ -47,7 +47,7 @@ export function UserSidebar({
 }: React.ComponentProps<typeof Sidebar> & { user: User }) {
     const pathname = usePathname()
     const [orgs, setOrgs] = React.useState<Org[]>([])
-    const [contentTypes, setContentTypes] = React.useState<ContentType[]>([])
+
 
     // Fetch data for regular users
     React.useEffect(() => {
@@ -58,12 +58,7 @@ export function UserSidebar({
             })
             .catch(console.error)
 
-        fetch("/api/content-types")
-            .then(res => res.json())
-            .then(data => {
-                if (Array.isArray(data)) setContentTypes(data)
-            })
-            .catch(console.error)
+
     }, [])
 
     const data = React.useMemo(() => {
@@ -122,27 +117,10 @@ export function UserSidebar({
                         },
                     ],
                 },
-                {
-                    title: "Dynamic Content",
-                    url: "#",
-                    icon: Database,
-                    isActive: pathname.startsWith("/dashboard/builder") || pathname.startsWith("/dashboard/content"),
-                    items: [
-                        {
-                            title: "Schema Builder",
-                            url: "/dashboard/builder",
-                            isActive: pathname.startsWith("/dashboard/builder"),
-                        },
-                        ...contentTypes.map(type => ({
-                            title: type.name,
-                            url: `/dashboard/content/${type.slug}`,
-                            isActive: pathname.startsWith(`/dashboard/content/${type.slug}`),
-                        }))
-                    ],
-                }
+
             ],
         }
-    }, [user, pathname, orgs, contentTypes])
+    }, [user, pathname, orgs])
 
     return (
         <Sidebar collapsible="icon" {...props}>
